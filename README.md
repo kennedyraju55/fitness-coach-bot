@@ -1,138 +1,167 @@
-# 🏋️ Fitness Coach Bot
+# 💪 Fitness Coach Bot
 
-![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white) ![MIT License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square) ![Gemma 4](https://img.shields.io/badge/Gemma_4-Google-4285F4?style=flat-square&logo=google&logoColor=white) ![Privacy-First](https://img.shields.io/badge/Privacy--First-100%25_Local-8b5cf6?style=flat-square) ![Ollama](https://img.shields.io/badge/Ollama-Powered-000000?style=flat-square&logo=ollama&logoColor=white)
+![Python Version](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Gemma 3](https://img.shields.io/badge/AI-Gemma%203-orange?style=for-the-badge)
+![Privacy First](https://img.shields.io/badge/Privacy-First-purple?style=for-the-badge&logo=lock)
+![Ollama](https://img.shields.io/badge/Ollama-Local%20AI-black?style=for-the-badge)
 
-**AI-powered personal fitness coach that generates custom workout plans, tracks your progress, and provides exercise guidance — all running 100 % locally on your machine.**
+> Intelligent personal training powered by Gemma 3 with adaptive workout recommendations
 
----
+## 📋 Overview
 
-## Architecture
+Get personalized fitness coaching with AI-powered workout recommendations, form analysis, and training optimization tailored to your goals and fitness level.
 
-```
-┌──────────────────────────────────────────────────┐
-│                 Fitness Coach Bot                 │
-│                                                  │
-│  ┌──────────┐  ┌──────────┐  ┌──────────────┐   │
-│  │   CLI    │  │  Web UI  │  │  REST API    │   │
-│  │  (Click) │  │(Streamlit)│  │  (FastAPI)   │   │
-│  └────┬─────┘  └────┬─────┘  └──────┬───────┘   │
-│       └──────────────┼───────────────┘           │
-│              ┌───────┴───────┐                   │
-│              │  Core Engine  │                   │
-│              │ generate_plan │                   │
-│              │ get_exercise  │                   │
-│              └───────┬───────┘                   │
-│              ┌───────┴───────┐                   │
-│              │  Ollama LLM   │                   │
-│              │   (Gemma 4)   │                   │
-│              └───────────────┘                   │
-│  ┌───────────────────────────────────────────┐   │
-│  │  Storage: workout_log.json | progress.json│   │
-│  └───────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────┘
-```
+## 🏗️ Architecture
 
----
+\\\
+┌─────────────────────────────────────────────────────┐
+│                   User Interface                      │
+│              (Web/Mobile/CLI Frontend)               │
+└────────────────┬────────────────────────────────────┘
+                 │
+┌────────────────▼────────────────────────────────────┐
+│               API Gateway Layer                       │
+│        (Request Handling & Validation)               │
+└────────────────┬────────────────────────────────────┘
+                 │
+┌────────────────▼────────────────────────────────────┐
+│           Business Logic Services                     │
+│     (Core Processing & Orchestration)                │
+└────┬─────────────┬──────────────────┬───────────────┘
+     │             │                  │
+┌────▼──┐  ┌──────▼────┐  ┌──────────▼────┐
+│ Gemma │  │   Data    │  │  Integration  │
+│   3   │  │ Persistence   │  Services     │
+│  Model│  │ Layer      │  │               │
+└───────┘  └────────────┘  └─────┬────────┘
+           │                      │
+    ┌──────▼──────────────────────▼────┐
+    │   Privacy-First Local Ollama      │
+    │   (Offline AI Processing)         │
+    └───────────────────────────────────┘
+\\\
 
 ## ✨ Key Features
 
-- **Personalized Workout Plans** — generates multi-day programs tailored to your level, goal, equipment, and schedule
-- **Six Fitness Goals** — weight loss, muscle gain, endurance, flexibility, strength, and general fitness
-- **Three Difficulty Levels** — beginner, intermediate, and advanced with progressive overload guidance
-- **Exercise Library** — built-in catalog with muscle groups, equipment type, and difficulty ratings
-- **Detailed Exercise Guidance** — AI-generated form cues, common mistakes, and modifications
-- **Workout Logging** — persistent JSON storage for exercises, sets, reps, and weight
-- **Progress Tracking** — record body weight and body fat percentage over time with change summaries
-- **Streamlit Web UI** — tabbed interface with plan generation, logging, progress charts, and library search
-- **FastAPI REST API** — programmatic endpoints for workout plans and exercise details
-- **100 % Local & Private** — no cloud calls, no API keys, no data leaves your machine
+- AI-powered personalized workout plan generation
+- Real-time form feedback and exercise analysis
+- Progressive training periodization and overload
+- Nutrition and meal planning integration
+- Recovery optimization and rest day planning
+- Injury prevention guidance and modifications
+- Offline workout tracking with local Ollama
+- Performance metrics and progress analytics
+- Motivational coaching and goal tracking
+- Community workouts and challenge participation
 
----
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-| Requirement | Version |
-|-------------|---------|
-| Python      | 3.11+   |
-| Ollama      | latest  |
-| Gemma 4 model | pulled via Ollama |
+- **Python 3.11+**
+- **pip** (Python package manager)
+- **Ollama** (optional, for local AI processing)
+- **Git** (for version control)
 
 ### Installation
 
-```bash
-git clone https://github.com/kennedyraju55/fitness-coach-bot.git
-cd fitness-coach-bot
-pip install -r requirements.txt
-ollama pull gemma4
-```
+1. **Clone the repository**
+   \\\ash
+   git clone https://github.com/kennedyraju55/fitness-coach-bot.git
+   cd fitness-coach-bot
+   \\\
 
-### Run
+2. **Create a virtual environment**
+   \\\ash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\\Scripts\\activate
+   \\\
 
-```bash
-# CLI
-python -m src.fitness_coach.cli --level beginner --goal weight-loss --equipment bodyweight
+3. **Install dependencies**
+   \\\ash
+   pip install -r requirements.txt
+   \\\
 
-# Web UI
-streamlit run src/fitness_coach/web_ui.py
+4. **Configure environment (optional)**
+   \\\ash
+   cp .env.example .env
+   # Edit .env with your preferences
+   \\\
 
-# REST API
-uvicorn src.fitness_coach.api:app --host 0.0.0.0 --port 8003
+### Running the Application
 
-# Docker
-docker compose up
-```
+\\\ash
+# Start the main application
+python main.py
 
----
+# Or run with specific configuration
+python main.py --config config.yaml
+
+# For development with hot reload
+python main.py --dev
+
+# Run with local Ollama (privacy-first mode)
+python main.py --local
+\\\
 
 ## 🛠️ Tech Stack
 
-| Component        | Technology             |
-|------------------|------------------------|
-| Language         | Python 3.11+           |
-| LLM              | Gemma 4 via Ollama     |
-| CLI Framework    | Click + Rich           |
-| Web UI           | Streamlit              |
-| REST API         | FastAPI + Uvicorn      |
-| Data Storage     | JSON files             |
-| Configuration    | YAML (config.yaml)     |
-| Containerization | Docker + Docker Compose|
-| Testing          | pytest                 |
-
----
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| **AI/ML** | Gemma 3, Ollama | Intelligent analysis & recommendations |
+| **Backend** | Python 3.11+ | Core application logic |
+| **API** | FastAPI/Flask | RESTful endpoints |
+| **Database** | SQLite/PostgreSQL | Data persistence |
+| **Frontend** | React/Vue | User interface |
+| **Deployment** | Docker | Containerization |
+| **Testing** | Pytest | Quality assurance |
+| **Monitoring** | Prometheus | Performance tracking |
 
 ## 📁 Project Structure
 
-```
-fitness-coach-bot/
-├── src/fitness_coach/
-│   ├── core.py        # Workout plan & exercise generation
-│   ├── cli.py         # Click CLI with interactive REPL
-│   ├── web_ui.py      # Streamlit web interface
-│   ├── api.py         # FastAPI REST endpoints
-│   ├── utils.py       # Logging, progress tracking, exercise library
-│   └── config.py      # YAML config loader
-├── common/            # Shared LLM client
-├── tests/             # pytest test suite
-├── config.yaml        # Default configuration
-├── requirements.txt   # Python dependencies
-├── Dockerfile         # Container build
-└── docker-compose.yml # Multi-service orchestration
-```
+\\\
+.
+├── src/
+│   ├── main.py              # Application entry point
+│   ├── api/                 # API endpoints
+│   ├── models/              # Data models
+│   ├── services/            # Business logic
+│   ├── utils/               # Utility functions
+│   └── config/              # Configuration files
+├── tests/                   # Test suite
+├── docs/                    # Documentation
+├── requirements.txt         # Python dependencies
+├── .env.example             # Environment template
+├── Dockerfile               # Container configuration
+├── docker-compose.yml       # Multi-container setup
+└── README.md               # This file
+\\\
 
----
+## 📚 Documentation
 
-## 👤 Author
+- [Installation Guide](./docs/INSTALLATION.md)
+- [User Guide](./docs/USER_GUIDE.md)
+- [API Reference](./docs/API.md)
+- [Contributing Guidelines](./CONTRIBUTING.md)
+- [Troubleshooting](./docs/TROUBLESHOOTING.md)
 
-**Nrk Raju Guthikonda**
+## 👨‍💻 Author
 
-- GitHub: [kennedyraju55](https://github.com/kennedyraju55)
-- Dev.to: [https://dev.to/kennedyraju55](https://dev.to/kennedyraju55)
-- LinkedIn: [https://www.linkedin.com/in/nrk-raju-guthikonda-504066a8/](https://www.linkedin.com/in/nrk-raju-guthikonda-504066a8/)
+**Raju Guthikonda** (kennedyraju55)
 
----
+- 🔗 [GitHub](https://github.com/kennedyraju55)
+- 📝 [Dev.to](https://dev.to/kennedyraju55)
+- 💼 [LinkedIn](https://linkedin.com/in/nrk-raju-guthikonda-504066a8)
 
 ## 📄 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+---
+
+<div align="center">
+  <b>Made with ❤️ using Gemma 3 and Ollama</b><br>
+  ⭐ Star this repo if you find it helpful!
+</div>
